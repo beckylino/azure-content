@@ -140,8 +140,6 @@ In the control panel of your Azure Web App, add the Application Insights extensi
 
 ![In your web app, Tools, Performance Monitoring, Add, Application Insights](./media/app-insights-start-monitoring-app-health-usage/05-extend.png)
 
-(The extension only assists an app that has been built with the SDK. Unlike Status Monitor, it can't instrument an existing app.)
-
 ## 6. Add client-side monitoring
 
 You've installed the SDK that sends telemetry data from the server (back end) of your application. Now you can add client-side monitoring. This provides you with data on users, sessions, page views, and any exceptions or crashes that occur in the client. 
