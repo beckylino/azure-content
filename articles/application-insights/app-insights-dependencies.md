@@ -36,6 +36,7 @@ The out-of-the-box dependency monitor currently reports calls to these  types of
  * ASP.NET web and WCF services that use HTTP-based bindings
  * Local or remote HTTP calls
  * Azure DocumentDb, table, blob storage, and queue
+ * AJAX calls
 * Java
  * Calls to a database through a [JDBC](http://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/) driver, such as MySQL, SQL Server, PostgreSQL or SQLite.
 
