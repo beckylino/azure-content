@@ -18,6 +18,9 @@
 # AJAX Dependency Collection in Application Insights 
 *Application Insights is in preview.*
 
+## How to Get It 
+
+
 Application Insights automatically tells you about the performance of AJAX calls made by your web page apps. Many modern web apps load their basic structure, then use AJAX calls to load content. Failed or slow AJAX calls leave the users looking at empty web parts or stuck progress bars.
 
 With this feature, you’ll be able to see whether and how often your AJAX-dependent features cause problems. Best of all, you don’t have to do any additional configuration to make it happen. Telemetry about AJAX calls is a function of our JavaScript web client SDK, so make sure you’ve set up your web pages for Application Insights.
@@ -25,23 +28,13 @@ With this feature, you’ll be able to see whether and how often your AJAX-depen
 ## Diagnozing AJAX Issues
 
 
-Marcela Markova is a test specialist on the OBS team, and takes the lead on monitoring online performance. She sets up several [web tests][availability]:
+How can you find out that you’ve got issues caused by AJAX calls? And how can you use the new features to help you fix them?
 
-* A single-URL test for the main landing page for the app, http://fabrikambank.com/onlinebanking/. She sets criteria of HTTP code 200 and text 'Welcome!'. If this test fails, there's something seriously wrong with the network or the servers, or maybe a deployment issue. (Or someone has changed the Welcome! message on the page without letting her know.)
+Open the browsers blade by clicking Settings, Browsers; or click through the browsers chart, Page View Duration, on the service overview blade.
 
+The three charts: Dependency Calls, Dependency Failures and Dependency Duration, give a nice overview of how your AJAX calls are behaving. Drill into any of these charts to gather more insights.
 
-* A deeper multi-step test, which logs in and gets a current account listing, checking a few key details on each page. This test verifies that the link to the accounts database is working. She uses a fictitious customer id: a few of them are maintained for test purposes.
-
-
-With these tests set up, Marcela is confident that the team will quickly know about any outage.  
-
-
-Failures show up as red dots on the web test chart:
-
-![Display of web tests that have run over the preceding period](./media/app-insights-detect-triage-diagnose/04-webtests.png)
-
-
-But more importantly, an alert about any failure will be emailed to the development team. In that way, they know about it before nearly all of the customers.
+Note: If you do not see these new charts select the Restore Defaults option.
 
 
 ## Monitor performance metrics
