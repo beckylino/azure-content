@@ -23,7 +23,7 @@
 
 Application Insights automatically tells you about the performance of AJAX calls made by your web page apps. Many modern web apps load their basic structure, then use AJAX calls to load content. Failed or slow AJAX calls leave the users looking at empty web parts or stuck progress bars.
 
-With this feature, you’ll be able to see whether and how often your AJAX-dependent features cause problems. Best of all, you don’t have to do any additional configuration to make it happen. Telemetry about AJAX calls is a function of our JavaScript web client SDK, so make sure you’ve set up your web pages for Application Insights.
+With this feature, you’ll be able to see whether and how often your AJAX-dependent features cause problems. Best of all, you don’t have to do any additional configuration to make it happen. Telemetry about AJAX calls is a function of our JavaScript web client SDK, so make sure you’ve [set up your web pages for Application Insights.] (https://azure.microsoft.com/documentation/articles/app-insights-javascript/)
 
 ## Diagnozing AJAX Issues
 
