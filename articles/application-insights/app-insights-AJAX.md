@@ -23,7 +23,7 @@
 
 Application Insights automatically tells you about the performance of AJAX calls made by your web page apps. Many modern web apps load their basic structure, then use AJAX calls to load content. Failed or slow AJAX calls leave the users looking at empty web parts or stuck progress bars.
 
-With this feature, you’ll be able to see whether and how often your AJAX-dependent features cause problems. Best of all, you don’t have to do any additional configuration to make it happen. Telemetry about AJAX calls is a function of our JavaScript web client SDK, so make sure you’ve [set up your web pages for Application Insights.] (https://azure.microsoft.com/documentation/articles/app-insights-javascript/)
+With this feature, you’ll be able to see whether and how often your AJAX-dependent features cause problems. Best of all, you don’t have to do any additional configuration to make it happen. Telemetry about AJAX calls is a function of our JavaScript web client SDK, so make sure you’ve [set up your web pages for Application Insights.](https://azure.microsoft.com/documentation/articles/app-insights-javascript/)
 
 ## Diagnozing AJAX Issues
 
@@ -81,8 +81,8 @@ You can click into charts to see more details for certain data types. AJAX colle
 
 If you want to limit usage you have a few options:
 
-1. Use Sampling: See our documentation page on Sampling.
-2. Use the maxAjaxCallsPerView parameter.
+1. Use Sampling: See our [documentation page](https://azure.microsoft.com/documentation/articles/app-insights-sampling/) on Sampling.
+2. Use the [maxAjaxCallsPerView parameter](https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#config).
 
 `// Default 500 - controls how many ajax calls will be monitored per page view.`
 
@@ -94,8 +94,9 @@ If you want to limit usage you have a few options:
 
 ## Opt Out
 
-AJAX calls are automatically collected. To disable this simply add: disableAjaxTracking: true in your config file. For more details see our documentation.
-Marcela doesn't just sit around waiting for alerts. Soon after every redeployment, she takes a look at [response times][perf] - both the overall figure and the table of slowest requests, as well as exception counts.  
+AJAX calls are automatically collected. To disable this simply add: disableAjaxTracking: true in your config file. For more details see [our documentation](https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#config).
+
+To learn more about dependency collection in general please see our [documentation](https://azure.microsoft.com/documentation/articles/app-insights-dependencies/).
 
 <!--Link references-->
 
