@@ -36,7 +36,7 @@ The three charts: Dependency Calls, Dependency Failures and Dependency Duration,
 
 Note: If you do not see these new charts select the Restore Defaults option.
 
-![AJAX Dependency Charts](./media/AJAX/01-charts.png)
+![AJAX Dependency Charts](./media/app-insights-AJAX/3charts.PNG)
 
 In this case, the dependency is the AJAX server. We track AJAX calls from the browser in the same way that we track other dependencies in the server. If you open the Filters for these charts, you’ll see that we filter on device.type = “Browser.”
 
@@ -53,7 +53,7 @@ Dependency Failures: Depending on where the failure is, this typically indicates
 
 Under the Dependency charts there are a couple grids:
 
-![AJAX Dependency Grids](./media/AJAX/02-grids.png)
+![AJAX Dependency Grids](./media/app-insights-AJAX/dependencybydependency.PNG)
 
 Average of Page view duration by Operation name: This grid provides the average amount of time your customer is waiting on a page to load. Drill into a specific operation name to gain more insights and discover what's slowing you down. 
 
@@ -63,7 +63,7 @@ Total of Dependency calls by Dependency: This grid shows AJAX requests grouped b
 
 From the single page request details blade you can select a single AJAX call. Selecting a call will open a new dependency blade for this AJAX call. Here you can see specific properties for this AJAX call including full URL. Also on this blade in the Related Items section, you'll find a link to the Page View Blade that this AJAX call was made on. If you landed on an AJAX dependency blade via search, you may want to look into at the page view blade. Because AJAX dependencies are treated the same as other dependency types they are displayed similarly.
 
-![AJAX Details Blade](./media/AJAX/03-details-blade.png)
+![AJAX Details Blade](./media/app-insights-AJAX/ajax_details_blade.PNG)
 
 
 ## Data Quota
@@ -73,7 +73,7 @@ Depending on your application, collecting AJAX dependencies could result in a st
 
 To see the breakdown of your data volume by data type go to settings and select Quota and Pricing. 
 
-![AJAX Data Quota](./media/AJAX/04-data-quota.png)
+![AJAX Data Quota](./media/app-insights-AJAX/pricing_ajax.png)
 
 You can click into charts to see more details for certain data types. AJAX collection began on December 23, 2015. If you notice a large spike in dependencies around that date, it was highly likely the AJAX collection caused it. 
 
