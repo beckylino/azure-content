@@ -36,97 +36,51 @@ The three charts: Dependency Calls, Dependency Failures and Dependency Duration,
 
 Note: If you do not see these new charts select the Restore Defaults option.
 
+![AJAX Dependency Charts](./media/AJAX/01-charts.png)
 
-## Monitor performance metrics
+In this case, the dependency is the AJAX server. We track AJAX calls from the browser in the same way that we track other dependencies in the server. If you open the Filters for these charts, you’ll see that we filter on device.type = “Browser.”
 
-
-On the overview page in Application Insights, there's a chart that shows a variety of [key metrics][perf].
-
-![Various metrics](./media/app-insights-detect-triage-diagnose/05-perfMetrics.png)
-
-Browser page load time is derived from telemetry sent directly from web pages. Server response time, server request count and failed request count are all measured in the web server and sent to Application Insights from there.
+## Using the Charts
 
 
-The Failed Request count indicates cases where users have seen an error - typically following an exception thrown in the code. Maybe they see a message saying "Sorry we couldn't update your details right now" or, at absolute embarrassing worst, a stack dump on the user's screen, courtesy of the web server.
+Dependency Duration: Use the Dependency Duration chart to see how long responses are taking. You can decide what acceptable call durations would be for your application and compare that to the durations you see on the Dependency Duration chart.
+
+An alternative approach would be to insert code to time how long it takes to complete a response to the user, then report it in trackMetric calls. But that would involve investing in some code, whereas you get the AJAX call durations without writing anything. Since AJAX calls are likely to be the longest and least reliable part of an operation, it’s usually enough to measure those alone. So although the exact way to monitor your app’s response time involves writing some app-specific code, this general method is much easier and almost as effective.
+
+Dependency Calls: The Dependency Calls chart provides quick access to the number of calls made. Compare the Dependency Calls chart to Dependency Failures to gain an idea of your failure rate.
+
+Dependency Failures: Depending on where the failure is, this typically indicates customer dissatisfaction. Anything with a response code of 400 or higher is counted as a failure. Filter the charts by URI to compare the total count of calls for that URI with the number of failures, to see how often it happens.
+
+Under the Dependency charts there are a couple grids:
+
+![AJAX Dependency Grids](./media/AJAX/02-grids.png)
+
+Average of Page view duration by Operation name: This grid provides the average amount of time your customer is waiting on a page to load. Drill into a specific operation name to gain more insights and discover what's slowing you down. 
+
+Total of Dependency calls by Dependency: This grid shows AJAX requests grouped by AJAX server name. Click through any chart for more detail. Some web apps just send AJAX calls to their home server, but others call on other servers. If your app is one of the latter, you’ll find it useful to look at this grid.
+
+#### AJAX Dependency Blade
+
+From the single page request details blade you can select a single AJAX call. Selecting a call will open a new dependency blade for this AJAX call. Here you can see specific properties for this AJAX call including full URL. Also on this blade in the Related Items section, you'll find a link to the Page View Blade that this AJAX call was made on. If you landed on an AJAX dependency blade via search, you may want to look into at the page view blade. Because AJAX dependencies are treated the same as other dependency types they are displayed similarly.
+
+![AJAX Details Blade](./media/AJAX/03-details-blade.png)
 
 
-Marcela likes to look at these charts from time to time. The absence of failed requests is encouraging, although when she changes the range of the chart to cover the past week, occasional failures appear. This is an acceptable level in a busy server.  But if there is a sudden jump in failures, or in some of the other metrics such as server response time, Marcela wants to know about it immediately. It might indicate an unforeseen problem caused by a code release, or a failure in a dependency such as a database, or maybe an ungraceful reaction to a high load of requests.
-
-#### Alerts
-
-So she sets two [alerts][metrics]: one for response times greater than a typical threshold, and another for a rate of failed requests greater than the current background.
+## Data Quota
 
 
-Together with the availability alert, these give her confidence that she'll know about it as soon as anything unusual happens.  
+Depending on your application, collecting AJAX dependencies could result in a steep increase in your data collection rates. This increase could possibly cause your application to reach its quota sooner.
 
+To see the breakdown of your data volume by data type go to settings and select Quota and Pricing. 
 
-It's also possible to set alerts on a wide variety of other metrics. For example, you can receive emails if the exception count becomes high, or the available memory goes low, or if there is a peak in client requests.
+![AJAX Data Quota](./media/AJAX/04-data-quota.png)
 
+You can click into charts to see more details for certain data types. AJAX collection began on December 23, 2015. If you notice a large spike in dependencies around that date, it was highly likely the AJAX collection caused it. 
 
+## Limit Usage
 
-![Add alert blade](./media/app-insights-detect-triage-diagnose/07-alerts.png)
+If you want to limit usage you have a few options:
 
-
-
-
-## Detecting exceptions
-
-
-With a little bit of setup, [exceptions](app-insights-asp-net-exceptions.md) are reported to Application Insights automatically. They can also be captured explicitly by inserting calls to [TrackException()](app-insights-api-custom-events-metrics.md#track-exception) into the code:  
-
-    var telemetry = new TelemetryClient();
-    ...
-    try
-    { ...
-    }
-    catch (Exception ex)
-    {
-       // Set up some properties:
-       var properties = new Dictionary <string, string>
-         {{"Game", currentGame.Name}};
-
-       var measurements = new Dictionary <string, double>
-         {{"Users", currentGame.Users.Count}};
-
-       // Send the exception telemetry:
-       telemetry.TrackException(ex, properties, measurements);
-    }
-
-
-The Fabrikam Bank team has evolved the practice of always sending telemetry on an exception, unless there's an obvious recovery.  
-
-In fact, their strategy is even broader than that: They send telemetry in every case where the customer is frustrated in what they wanted to do, whether it corresponds to an exception in the code or not. For example, if the external inter-bank transfer system returns a "can't complete this transaction" message for some operational reason (no fault of the customer) then they track that event.
-
-    var successCode = AttemptTransfer(transferAmount, ...);
-    if (successCode < 0)
-    {
-       var properties = new Dictionary <string, string>
-            {{ "Code", returnCode, ... }};
-       var measurements = new Dictionary <string, double>
-         {{"Value", transferAmount}};
-       telemetry.TrackEvent("transfer failed", properties, measurements);
-    }
-
-TrackException is used to report exceptions because it sends a copy of the stack; TrackEvent is used to report other events. You can attach any properties that might be useful in diagnosis.
-
-Exceptions and events show up in the [Diagnostic Search][diagnostic] blade. You can drill into them to see the additional properties and stack trace.
-
-![In Diagnostic Search, use filters to show particular types of data](./media/app-insights-detect-triage-diagnose/appinsights-333facets.png)
-
-## Monitoring user activity
-
-When response time is consistently good and there are few exceptions, the dev team can think about how to improve the users' experience, and how to encourage more users to achieve the desired goals.
-
-
-For example, a typical user journey through the web site has a clear 'funnel': Many customers look at the rates of different types of loan; some of them fill in the quotation form; and of those who get a quotation, a few go ahead and take out the loan.
-
-![](./media/app-insights-detect-triage-diagnose/12-funnel.png)
-
-By considering where the greatest numbers of customers drop out, the business can work out how to get more users through to the bottom of the funnel. In some cases there might be a user experience (UX) failure - for example, the 'next' button is hard to find, or the instructions aren't obvious. More likely, there are more significant business reasons for drop-outs: maybe the loan rates are too high.
-
-Whatever the reasons, the data helps the team work out what users are doing. More tracking calls can be inserted to work out more detail. TrackEvent() can be used to count any user actions, from the fine detail of individual button clicks to significant achievements such as paying off a loan.
-
-The team is getting used to having information about user activity. Nowadays, whenever they design a new feature, they work out how they will get feedback about its usage. They design tracking calls into the feature from the start. They use the feedback to improve the feature in each development cycle.
 
 
 ## Proactive monitoring  
