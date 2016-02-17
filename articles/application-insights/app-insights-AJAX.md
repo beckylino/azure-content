@@ -83,14 +83,14 @@ If you want to limit usage you have a few options:
 
 1. Use Sampling: See our [documentation page](https://azure.microsoft.com/documentation/articles/app-insights-sampling/) on Sampling.
 2. Use the [maxAjaxCallsPerView parameter](https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#config).
-
-`// Default 500 - controls how many ajax calls will be monitored per page view.`
-
-`// Set to -1 to monitor all ajax calls on the page.`
-
-`maxAjaxCallsPerView: number;`
-
-3. Turn off AJAX auto collection: Learn how to Opt Out in the following section. 
+	```
+	// Default 500 - controls how many ajax calls will be monitored per page view.
+	
+	// Set to -1 to monitor all ajax calls on the page.
+	
+	maxAjaxCallsPerView: number;
+	```
+3. Turn off AJAX auto collection: Learn how to Opt Out in the following section.
 
 ## Opt Out
 
