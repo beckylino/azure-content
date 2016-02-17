@@ -43,21 +43,21 @@ In this case, the dependency is the AJAX server. We track AJAX calls from the br
 ## Using the Charts
 
 
-Dependency Duration: Use the Dependency Duration chart to see how long responses are taking. You can decide what acceptable call durations would be for your application and compare that to the durations you see on the Dependency Duration chart.
+**Dependency Duration**: Use the Dependency Duration chart to see how long responses are taking. You can decide what acceptable call durations would be for your application and compare that to the durations you see on the Dependency Duration chart.
 
 An alternative approach would be to insert code to time how long it takes to complete a response to the user, then report it in trackMetric calls. But that would involve investing in some code, whereas you get the AJAX call durations without writing anything. Since AJAX calls are likely to be the longest and least reliable part of an operation, it’s usually enough to measure those alone. So although the exact way to monitor your app’s response time involves writing some app-specific code, this general method is much easier and almost as effective.
 
-Dependency Calls: The Dependency Calls chart provides quick access to the number of calls made. Compare the Dependency Calls chart to Dependency Failures to gain an idea of your failure rate.
+**Dependency Calls**: The Dependency Calls chart provides quick access to the number of calls made. Compare the Dependency Calls chart to Dependency Failures to gain an idea of your failure rate.
 
-Dependency Failures: Depending on where the failure is, this typically indicates customer dissatisfaction. Anything with a response code of 400 or higher is counted as a failure. Filter the charts by URI to compare the total count of calls for that URI with the number of failures, to see how often it happens.
+**Dependency Failures**: Depending on where the failure is, this typically indicates customer dissatisfaction. Anything with a response code of 400 or higher is counted as a failure. Filter the charts by URI to compare the total count of calls for that URI with the number of failures, to see how often it happens.
 
 Under the Dependency charts there are a couple grids:
 
 ![AJAX Dependency Grids](./media/app-insights-AJAX/dependencybydependency.PNG)
 
-Average of Page view duration by Operation name: This grid provides the average amount of time your customer is waiting on a page to load. Drill into a specific operation name to gain more insights and discover what's slowing you down. 
+**Average of Page view duration by Operation name**: This grid provides the average amount of time your customer is waiting on a page to load. Drill into a specific operation name to gain more insights and discover what's slowing you down. 
 
-Total of Dependency calls by Dependency: This grid shows AJAX requests grouped by AJAX server name. Click through any chart for more detail. Some web apps just send AJAX calls to their home server, but others call on other servers. If your app is one of the latter, you’ll find it useful to look at this grid.
+**Total of Dependency calls by Dependency**: This grid shows AJAX requests grouped by AJAX server name. Click through any chart for more detail. Some web apps just send AJAX calls to their home server, but others call on other servers. If your app is one of the latter, you’ll find it useful to look at this grid.
 
 #### AJAX Dependency Blade
 
