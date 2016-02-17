@@ -83,10 +83,12 @@ If you want to limit usage you have a few options:
 
 1. Use Sampling: See our documentation page on Sampling.
 2. Use the maxAjaxCallsPerView parameter.
-    
-    `// Default 500 - controls how many ajax calls will be monitored per page view.`
-    `// Set to -1 to monitor all ajax calls on the page.`
-    `maxAjaxCallsPerView: number;`
+
+`// Default 500 - controls how many ajax calls will be monitored per page view.`
+
+`// Set to -1 to monitor all ajax calls on the page.`
+
+`maxAjaxCallsPerView: number;`
 
 3. Turn off AJAX auto collection: Learn how to Opt Out in the following section. 
 
