@@ -81,98 +81,14 @@ You can click into charts to see more details for certain data types. AJAX colle
 
 If you want to limit usage you have a few options:
 
+1. Use Sampling: See our documentation page on Sampling.
+2. Use the maxAjaxCallsPerView parameter.
+3. Turn off AJAX auto collection: Learn how to Opt Out in the following section. 
 
+## Opt Out
 
-## Proactive monitoring  
-
-
+AJAX calls are automatically collected. To disable this simply add: disableAjaxTracking: true in your config file. For more details see our documentation.
 Marcela doesn't just sit around waiting for alerts. Soon after every redeployment, she takes a look at [response times][perf] - both the overall figure and the table of slowest requests, as well as exception counts.  
-
-
-
-![Response time graph and grid of server response times.](./media/app-insights-detect-triage-diagnose/09-dependencies.png)
-
-She can assess the performance effect of every deployment, typically comparing each week with the last. If there's a sudden worsening, she raises that with the relevant developers.
-
-
-## Triage
-
-
-Triage - assessing the severity and extent of a problem - is the first step after detection. Should we call out the team at midnight? Or can it be left until the next convenient gap in the backlog? There are some key questions in triage.
-
-
-How much is it happening? The charts on the Overview blade give some perspective to a problem. For example, the Fabrikam application generated four web test alerts one night. Looking at the chart in the morning, the team could see that there were indeed some red dots, though still most of the tests were green. Drilling into the availability chart, it was clear that all of these intermittent problems were from one test location. This was obviously a network issue affecting only one route, and would most likely clear itself.  
-
-
-By contrast, a dramatic and stable rise in the graph of exception counts or response times is obviously something to panic about.
-
-
-A useful triage tactic is Try It Yourself. If you run into the same problem, you know it's real.
-
-
-What fraction of users are affected? To obtain a rough answer, divide the failure rate by the session count.
-
-
-![Charts of failed requests and sessions](./media/app-insights-detect-triage-diagnose/10-failureRate.png)
-
-In the case of slow response, compare the table of slowest-responding requests with the usage frequency of each page.
-
-
-How important is the blocked scenario? If this is a functional problem blocking a particular user story, does it matter much? If customers can't pay their bills, this is serious; if they can't change their screen color preferences, maybe it can wait. The detail of the event or exception, or the identity of the slow page, tells you where customers are having trouble.
-
-
-## Diagnosis
-
-
-Diagnosis isn't quite the same as debugging. Before you start tracing through the code, you should have a rough idea of why, where and when the issue is occurring.
-
-
-**When does it happen?** The historical view provided by the event and metric charts makes it easy to correlate effects with possible causes. If there are intermittent peaks in response time or exception rates, look at the request count: if it peaks at the same time, then it looks like a resource problem. Do you need to assign more CPU or memory? Or is it a dependency that can't manage the load?
-
-
-**Is it us?**  If you have a sudden drop in performance of a particular type of request - for example when the customer wants an account statement - then there's a possibility it might be an external subsystem rather than your web application. In Metrics Explorer, select the Dependency Failure rate and Dependency Duration rates and compare their histories over the past few hours or days with the problem you detected. If there are correlating changes, then an external subsystem might be to blame.  
-
-
-![Charts of dependency failure and duration of calls to dependencies](./media/app-insights-detect-triage-diagnose/11-dependencies.png)
-
-Some slow dependency issues are geolocation problems. Fabrikam Bank uses Azure virtual machines, and discovered that they had inadvertently located their web server and account server in different countries. A dramatic improvement was brought about by migrating one of them.
-
-
-**What did we do?** If the issue doesn't appear to be in a dependency, and if it wasn't always there, it's probably caused by a recent change. The historical perspective provided by the metric and event charts makes it easy to correlate any sudden changes with deployments. That narrows down the search for the problem.
-
-
-**What's going on?** Some problems occur only rarely and can be difficult to track down by testing offline. All we can do is to try to capture the bug when it occurs live. You can inspect the stack dumps in exception reports. In addition, you can write tracing calls, either with your favourite logging framework or with TrackTrace() or TrackEvent().  
-
-
-Fabrikam had an intermittent problem with inter-account transfers, but only with certain account types. To understand better what was happening, they inserted TrackTrace() calls at key points in the code, attaching the account type as a property to each call. That made it easy to filter out just those traces in Diagnostic Search. They also attached parameter values as properties and measures to the trace calls.
-
-
-## Dealing with it
-
-
-Once you've diagnosed the issue, you can make a plan to fix it. Maybe you need to roll back a recent change, or maybe you can just go ahead and fix it. Once the fix is done, Application Insights will tell you whether you succeeded.  
-
-
-Fabrikam Bank's development team take a more structured approach to performance measurement than they used to before they used Application Insights.
-
-* They set performance targets in terms of specific measures in the Application Insights overview page.
-
-* They design performance measures into the application from the start, such as the metrics that measure user progress through 'funnels.'  
-
-
-
-
-## Usage
-
-Application Insights can also be used to learn what users do with an app. Once it's running smoothly, the team would like to know which features are the most popular, what users like or have difficulty with, and how often they come back. That will help them prioritize their upcoming work. And they can plan to measure the success of each feature as part of the development cycle. [Read more][usage].
-
-## Your applications
-
-So that's how one team use Application Insights not just to fix individual issues, but to improve their development lifecycle. I hope it has given you some ideas about how Application Insights can help you improve the performance of your own applications.
-
-## Video
-
-[AZURE.VIDEO performance-monitoring-application-insights]
 
 <!--Link references-->
 
